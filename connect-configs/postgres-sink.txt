@@ -1,0 +1,18 @@
+curl -X POST -H "Content-Type: application/json" --data '{
+    "name": "postgres-sink-connector",
+    "config": {
+      "connector.class": "io.confluent.connect.jdbc.JdbcSinkConnector",
+      "tasks.max": "1",
+      "connection.url": "jdbc:postgresql://postgres:5432/orders_db",
+      "connection.user": "user",
+      "connection.password": "password",
+      "topics": "enriched_orders",
+      "insert.mode": "insert",
+      "auto.create": "true",   
+      "auto.evolve": "true",
+      "key.converter": "org.apache.kafka.connect.storage.StringConverter",
+      "value.converter": "org.apache.kafka.connect.json.JsonConverter",
+      "value.converter.schemas.enable": "false"
+    }
+  }' http://localhost:8083/connectors
+  

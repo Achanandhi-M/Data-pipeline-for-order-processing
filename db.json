@@ -1,0 +1,25 @@
+{
+  "orders": [
+    {
+      "order_id": 1,
+      "product_name": "Product1",
+      "quantity": 2,
+      "price": 100,
+      "order_date": "2024-09-25"
+    },
+    {
+      "order_id": 2,
+      "product_name": "Product2",
+      "quantity": 1,
+      "price": 50,
+      "order_date": "2024-09-25"
+    },
+    {
+      "order_id": 3,
+      "product_name": "Product3",
+      "quantity": 1,
+      "price": -50,
+      "order_date": "2024-09-25"
+    }
+  ]
+}
