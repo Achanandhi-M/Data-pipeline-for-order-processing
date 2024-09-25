@@ -6,7 +6,8 @@ This application is designed to process orders from a JSON server using Apache K
 ## Overview
 
 The application has the following components:
-- **JSON Server**: Provides a REST API to simulate an order database.
+
+- **JSON Server**:  Provides a REST API to simulate an order database.
 - **Kafka**: Acts as a message broker to handle communication between the producer and consumer.
 - **PostgreSQL**: Stores enriched order data.
 - **Kafka Connect**: Manages the integration of data between Kafka and PostgreSQL using source and sink connectors.
@@ -106,14 +107,9 @@ The application has the following components:
 - Ensure Docker and Docker Compose are installed and running.
 - Check the logs for individual services using `docker-compose logs` for any errors.
 
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
 ## Acknowledgments
 
 - [Apache Kafka](https://kafka.apache.org/)
 - [PostgreSQL](https://www.postgresql.org/)
 - [Confluent](https://www.confluent.io/)
 - [JSON Server](https://github.com/typicode/json-server)
-```
