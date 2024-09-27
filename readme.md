@@ -117,5 +117,4 @@ The application has the following components:
 - [PostgreSQL](https://www.postgresql.org/)
 - [Confluent](https://www.confluent.io/)
 - [JSON Server](https://github.com/typicode/json-server)
-```
 
