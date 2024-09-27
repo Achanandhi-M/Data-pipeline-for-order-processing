@@ -1,6 +1,7 @@
+
 curl -X POST -H "Content-Type: application/json" --data '{
-    "name": "postgres-sink-connector",
-    "config": {
+  "name": "postgres-sink-connector",
+  "config": {
       "connector.class": "io.confluent.connect.jdbc.JdbcSinkConnector",
       "tasks.max": "1",
       "connection.url": "jdbc:postgresql://postgres:5432/orders_db",
@@ -11,8 +12,8 @@ curl -X POST -H "Content-Type: application/json" --data '{
       "auto.create": "true",   
       "auto.evolve": "true",
       "key.converter": "org.apache.kafka.connect.storage.StringConverter",
-      "value.converter": "org.apache.kafka.connect.json.JsonConverter",
-      "value.converter.schemas.enable": "false"
-    }
-  }' http://localhost:8083/connectors
-  
+      "value.converter": "io.confluent.connect.avro.AvroConverter",
+      "value.converter.schema.registry.url": "http://localhost:8081",
+      "key.converter.schema.registry.url": "http://localhost:8081"
+  }
+}' http://localhost:8083/connectors
