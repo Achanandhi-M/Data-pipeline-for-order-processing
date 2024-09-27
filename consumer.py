@@ -7,7 +7,7 @@ order_schema = avro.load("order_schema.avsc")  # Load the schema directly using 
 
 # Consumer configuration
 consumer_config = {
-    'bootstrap.servers': 'kafka:9092',
+    'bootstrap.servers': 'kafka:29092',
     'group.id': 'order-group',
     'auto.offset.reset': 'earliest',
     'schema.registry.url': 'http://schema-registry:8081'
@@ -15,7 +15,7 @@ consumer_config = {
 
 # Producer configuration
 producer_config = {
-    'bootstrap.servers':  'kafka:9092',
+    'bootstrap.servers':  'kafka:29092',
     'schema.registry.url': 'http://schema-registry:8081'
 }
 
