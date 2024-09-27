@@ -58,42 +58,48 @@ The application has the following components:
 
    ```bash
    # Create HttpSourceConnector
-   curl -X POST -H "Content-Type: application/json" --data '{
-       "name": "http-source-connector",
-       "config": {
-           "connector.class": "io.confluent.connect.http.HttpSourceConnector",
-           "tasks.max": "1",
-           "url": "http://json-server:8080/orders",
-           "topic.name.pattern": "orders",
-           "confluent.topic.bootstrap.servers": "kafka:9092",
-           "key.converter": "org.apache.kafka.connect.storage.StringConverter",
-           "value.converter": "org.apache.kafka.connect.json.JsonConverter",
-           "value.converter.schemas.enable": "false",
-           "poll.interval.ms": "30000",
-           "http.offset.mode": "SIMPLE_INCREMENTING",
-           "http.initial.offset": "0",
-           "confluent.topic.replication.factor": "1"
-       }
-   }' http://localhost:8083/connectors
-
+            
+  curl -X POST -H "Content-Type: application/json" --data '{
+    "name": "http-source-connector",
+    "config": {
+        "connector.class": "io.confluent.connect.http.HttpSourceConnector",
+        "tasks.max": "1",
+        "url": "http://json-server:8080/orders",
+        "topic.name.pattern": "orders",
+        "confluent.topic.bootstrap.servers": "kafka:9092",
+        "key.converter": "org.apache.kafka.connect.storage.StringConverter",
+        "value.converter.schemas.enable": "true",
+        "key.converter.schema.registry.url": "http://localhost:8081",
+        "value.converter.schema.registry.url": "http://localhost:8081",
+        "poll.interval.ms": "30000",
+        "http.offset.mode": "SIMPLE_INCREMENTING",
+        "http.initial.offset": "0",
+        "confluent.topic.replication.factor": "1"
+    }
+  }' http://localhost:8083/connectors
+  
+  
    # Create JdbcSinkConnector
-   curl -X POST -H "Content-Type: application/json" --data '{
-       "name": "postgres-sink-connector",
-       "config": {
-           "connector.class": "io.confluent.connect.jdbc.JdbcSinkConnector",
-           "tasks.max": "1",
-           "connection.url": "jdbc:postgresql://postgres:5432/orders_db",
-           "connection.user": "user",
-           "connection.password": "password",
-           "topics": "enriched_orders",
-           "insert.mode": "insert",
-           "auto.create": "true",   
-           "auto.evolve": "true",
-           "key.converter": "org.apache.kafka.connect.storage.StringConverter",
-           "value.converter": "org.apache.kafka.connect.json.JsonConverter",
-           "value.converter.schemas.enable": "false"
-       }
-   }' http://localhost:8083/connectors
+   
+curl -X POST -H "Content-Type: application/json" --data '{
+  "name": "postgres-sink-connector",
+  "config": {
+      "connector.class": "io.confluent.connect.jdbc.JdbcSinkConnector",
+      "tasks.max": "1",
+      "connection.url": "jdbc:postgresql://postgres:5432/orders_db",
+      "connection.user": "user",
+      "connection.password": "password",
+      "topics": "enriched_orders",
+      "insert.mode": "insert",
+      "auto.create": "true",   
+      "auto.evolve": "true",
+      "key.converter": "org.apache.kafka.connect.storage.StringConverter",
+      "value.converter": "io.confluent.connect.avro.AvroConverter",
+      "value.converter.schema.registry.url": "http://localhost:8081",
+      "key.converter.schema.registry.url": "http://localhost:8081"
+  }
+}' http://localhost:8083/connectors
+
    ```
 
 ## Usage
