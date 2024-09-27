@@ -1,4 +1,3 @@
-```markdown
 # Kafka Order Processing Application
 
 This application is designed to process orders from a JSON server using Apache Kafka. It consists of a producer that fetches orders, a consumer that validates and enriches those orders, and a PostgreSQL database to store the enriched data.
@@ -7,7 +6,7 @@ This application is designed to process orders from a JSON server using Apache K
 
 The application has the following components:
 
-- **JSON Server**:  Provides a REST API to simulate an order database.
+- **JSON Server**: Provides a REST API to simulate an order database.
 - **Kafka**: Acts as a message broker to handle communication between the producer and consumer.
 - **PostgreSQL**: Stores enriched order data.
 - **Kafka Connect**: Manages the integration of data between Kafka and PostgreSQL using source and sink connectors.
@@ -59,47 +58,46 @@ The application has the following components:
    ```bash
    # Create HttpSourceConnector
             
-  curl -X POST -H "Content-Type: application/json" --data '{
-    "name": "http-source-connector",
-    "config": {
-        "connector.class": "io.confluent.connect.http.HttpSourceConnector",
-        "tasks.max": "1",
-        "url": "http://json-server:8080/orders",
-        "topic.name.pattern": "orders",
-        "confluent.topic.bootstrap.servers": "kafka:9092",
-        "key.converter": "org.apache.kafka.connect.storage.StringConverter",
-        "value.converter.schemas.enable": "true",
-        "key.converter.schema.registry.url": "http://localhost:8081",
-        "value.converter.schema.registry.url": "http://localhost:8081",
-        "poll.interval.ms": "30000",
-        "http.offset.mode": "SIMPLE_INCREMENTING",
-        "http.initial.offset": "0",
-        "confluent.topic.replication.factor": "1"
-    }
-  }' http://localhost:8083/connectors
+   curl -X POST -H "Content-Type: application/json" --data '{
+     "name": "http-source-connector",
+     "config": {
+       "connector.class": "io.confluent.connect.http.HttpSourceConnector",
+       "tasks.max": "1",
+       "url": "http://json-server:8080/orders",
+       "topic.name.pattern": "orders",
+       "confluent.topic.bootstrap.servers": "kafka:9092",
+       "key.converter": "org.apache.kafka.connect.storage.StringConverter",
+       "value.converter.schemas.enable": "true",
+       "key.converter.schema.registry.url": "http://localhost:8081",
+       "value.converter.schema.registry.url": "http://localhost:8081",
+       "poll.interval.ms": "30000",
+       "http.offset.mode": "SIMPLE_INCREMENTING",
+       "http.initial.offset": "0",
+       "confluent.topic.replication.factor": "1"
+     }
+   }' http://localhost:8083/connectors
   
   
    # Create JdbcSinkConnector
    
-curl -X POST -H "Content-Type: application/json" --data '{
-  "name": "postgres-sink-connector",
-  "config": {
-      "connector.class": "io.confluent.connect.jdbc.JdbcSinkConnector",
-      "tasks.max": "1",
-      "connection.url": "jdbc:postgresql://postgres:5432/orders_db",
-      "connection.user": "user",
-      "connection.password": "password",
-      "topics": "enriched_orders",
-      "insert.mode": "insert",
-      "auto.create": "true",   
-      "auto.evolve": "true",
-      "key.converter": "org.apache.kafka.connect.storage.StringConverter",
-      "value.converter": "io.confluent.connect.avro.AvroConverter",
-      "value.converter.schema.registry.url": "http://localhost:8081",
-      "key.converter.schema.registry.url": "http://localhost:8081"
-  }
-}' http://localhost:8083/connectors
-
+   curl -X POST -H "Content-Type: application/json" --data '{
+     "name": "postgres-sink-connector",
+     "config": {
+       "connector.class": "io.confluent.connect.jdbc.JdbcSinkConnector",
+       "tasks.max": "1",
+       "connection.url": "jdbc:postgresql://postgres:5432/orders_db",
+       "connection.user": "user",
+       "connection.password": "password",
+       "topics": "enriched_orders",
+       "insert.mode": "insert",
+       "auto.create": "true",
+       "auto.evolve": "true",
+       "key.converter": "org.apache.kafka.connect.storage.StringConverter",
+       "value.converter": "io.confluent.connect.avro.AvroConverter",
+       "value.converter.schema.registry.url": "http://localhost:8081",
+       "key.converter.schema.registry.url": "http://localhost:8081"
+     }
+   }' http://localhost:8083/connectors
    ```
 
 ## Usage
@@ -119,3 +117,5 @@ curl -X POST -H "Content-Type: application/json" --data '{
 - [PostgreSQL](https://www.postgresql.org/)
 - [Confluent](https://www.confluent.io/)
 - [JSON Server](https://github.com/typicode/json-server)
+```
+
